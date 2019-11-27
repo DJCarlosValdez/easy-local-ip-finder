@@ -11,6 +11,7 @@
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
+  "repository": "github:djcarlosvaldez/easy-local-ip-finder",
   "keywords": [],
   "author": {
     "name": "Carlos Valdez",
@@ -39,8 +40,8 @@
           "name": "@electron-forge/publisher-github",
           "config": {
             "repository": {
-              "owner": "",
-              "name": ""
+              "owner": "djcarlosvaldez",
+              "name": "easy-local-ip-finder"
             },
             "prerelease": true
           }
