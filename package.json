@@ -1,6 +1,6 @@
 {
   "name": "local-ip",
-  "productName": "My Local IP",
+  "productName": "MyLocalIP",
   "version": "1.0.0",
   "description": "Tray app to know your local IP Address",
   "main": "src/index.js",
@@ -25,7 +25,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "local_ip"
+            "iconUrl": "file:///C:/Users/Carlos Valdez/Documents/GitHub/easy-local-ip-finder/src/icon.ico"
           }
         },
         {

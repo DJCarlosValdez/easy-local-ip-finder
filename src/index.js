@@ -51,7 +51,7 @@ function createTray() {
 		{ label: 'Quit', type: 'normal' }
 	])
 	tray.setContextMenu(contextMenu)
-	tray.setToolTip('Local IP')
+	tray.setToolTip('My Local IP')
 	tray.on('click', event => {
 		toggleWindow()
 	})
@@ -62,9 +62,9 @@ function toggleWindow() {
 }
 
 function windowOutside() {
-	// mainWindow.on('blur', () => {
-	// 	mainWindow.hide()
-	// })
+	mainWindow.on('blur', () => {
+		mainWindow.hide()
+	})
 }
 
 app.on('ready', () => {
