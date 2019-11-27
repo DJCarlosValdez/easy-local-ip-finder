@@ -5,7 +5,6 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 	app.quit()
 }
 const ip = require('internal-ip')
-require('update-electron-app')()
 
 let mainWindow, tray
 
