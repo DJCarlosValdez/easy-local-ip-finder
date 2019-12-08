@@ -7,11 +7,22 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 const ip = require('internal-ip')
 
 let mainWindow, tray
+let local = ip.v4.sync()
 
-function createWindow() {
-	let display = electron.screen.getPrimaryDisplay()
-	let displayWidth = display.bounds.width
-	let displayHeight = display.bounds.height
+const refreshIP = () => {
+	local = ip.v4.sync()
+	tray.setToolTip(`Hello! Your IP is: ${local}`)
+	mainWindow.webContents.send('resIP', local)
+}
+
+app.setLoginItemSettings({
+	openAtLogin: true
+})
+
+function createWindow () {
+	const display = electron.screen.getPrimaryDisplay()
+	const displayWidth = display.bounds.width
+	const displayHeight = display.bounds.height
 	mainWindow = new BrowserWindow({
 		width: 300,
 		height: 400,
@@ -44,10 +55,10 @@ app.on('window-all-closed', () => {
 	}
 })
 
-function createTray() {
+function createTray () {
 	tray = new Tray(`${__dirname}/icon.png`)
-	contextMenu = Menu.buildFromTemplate([
-		{ label: 'Quit', type: 'normal' }
+	const contextMenu = Menu.buildFromTemplate([
+		{ label: 'Quit', type: 'normal', role: 'quit' }
 	])
 	tray.setContextMenu(contextMenu)
 	tray.setToolTip('My Local IP')
@@ -56,11 +67,12 @@ function createTray() {
 	})
 }
 
-function toggleWindow() {
+function toggleWindow () {
 	mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
+	refreshIP()
 }
 
-function windowOutside() {
+function windowOutside () {
 	mainWindow.on('blur', () => {
 		mainWindow.hide()
 	})
@@ -72,7 +84,5 @@ app.on('ready', () => {
 })
 
 ipcMain.on('reqIP', (event) => {
-	let local = ip.v4.sync()
-	tray.setToolTip(`Hello! Your IP is: ${local}`)
-	event.reply('resIP', local)
+	refreshIP()
 })
